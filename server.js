@@ -1,44 +1,20 @@
-require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const helmet = require('helmet');
-const authRoutes = require('./routes/auth');
-const pool = require('./db');
-const pgSession = require('connect-pg-simple')(session);
-
 const app = express();
-const PORT = process.env.PORT || 3000;
+const authRoutes = require('./routes/auth');
+require('dotenv').config();
 
-// Seguridad con Helmet
-app.use(helmet());
-
-// Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Configuración de sesiones con PostgreSQL
-app.use(session({
-  store: new pgSession({ pool }),
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: true, httpOnly: true, maxAge: 3600000 }
-}));
 
 app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-// Manejo de errores global
-app.use((err, req, res, next) => {
-  console.error('Error:', err);
-  res.status(500).send('Error interno del servidor');
-});
-
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor iniciado en http://localhost:${PORT}`);
 });

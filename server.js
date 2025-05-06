@@ -1,36 +1,64 @@
-const express = require('express');
-const session = require('express-session');
-const path = require('path');
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { pool } from './db.js';
+import bcrypt from 'bcryptjs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
+const PORT = 3000;
 
-require('dotenv').config();
-
-const authRoutes = require('./routes/auth.routes');
-const ensureAuthenticated = require('./middlewares/authMiddleware');
-
-// Middlewares
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(session({
-  secret: 'secreto123',
-  resave: false,
-  saveUninitialized: false
-}));
 
-// Rutas públicas
-app.use(express.static(path.join(__dirname, 'public')));
+app.post('/register', async (req, res) => {
+  const { nombre, correo, contrasena, rol } = req.body;
 
-// Rutas de autenticación
-app.use('/auth', authRoutes);
-
-// Páginas protegidas
-app.get('/atletas.html', ensureAuthenticated, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'atletas.html'));
+  try {
+    const hash = await bcrypt.hash(contrasena, 10);
+    await pool.query(
+      'INSERT INTO usuarios (nombre, correo, contrasena, rol) VALUES ($1, $2, $3, $4)',
+      [nombre, correo, hash, rol]
+    );
+    res.redirect('/login.html');
+  } catch (err) {
+    console.error(err);
+    res.send("Error al registrar");
+  }
 });
 
-app.get('/admin.html', ensureAuthenticated, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+app.post('/login', async (req, res) => {
+  const { correo, contrasena } = req.body;
+
+  try {
+    const result = await pool.query('SELECT * FROM usuarios WHERE correo = $1', [correo]);
+
+    if (result.rows.length === 0) {
+      return res.send('Usuario no encontrado');
+    }
+
+    const usuario = result.rows[0];
+    const isMatch = await bcrypt.compare(contrasena, usuario.contrasena);
+
+    if (isMatch) {
+      if (usuario.rol === 'admin') {
+        res.redirect('/admin.html');
+      } else {
+        res.redirect('/atleta.html');
+      }
+    } else {
+      res.send('Contraseña incorrecta');
+    }
+  } catch (err) {
+    console.error(err);
+    res.send("Error al iniciar sesión");
+  }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Servidor en ejecución en http://localhost:${PORT}`);
+});
+

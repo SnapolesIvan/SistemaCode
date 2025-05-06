@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Registro - Escuela para Atletas</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <meta charset="UTF-8">
+  <title>Registro</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <ul>
     <li><img src="images/logo_code.png" alt="logo" class="logo"></li>
     <li><a href="index.html">Inicio</a></li>
-    <li><a href="login.html">Login</a></li>
-    <li><a href="contacto.html">Contacto</a></li>
+    <li><a href="login.html">Iniciar sesión</a></li>
   </ul>
 
-  <div>
-    <h2>Regístrate</h2>
+  <div class="container">
+    <h2>Registrarse</h2>
     <form action="/auth/register" method="POST">
-      <input type="text" name="username" placeholder="Usuario" required /><br /><br />
-      <input type="email" name="email" placeholder="Correo electrónico" required /><br /><br />
-      <input type="password" name="password" placeholder="Contraseña" required /><br /><br />
-      <select name="role">
-        <option value="atleta">Atleta</option>
+      <input type="email" name="email" placeholder="Correo electrónico" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <select name="rol" required>
+        <option value="">Selecciona rol</option>
         <option value="admin">Administrador</option>
-      </select><br /><br />
-      <button type="submit">Crear Cuenta</button>
+        <option value="atleta">Atleta</option>
+      </select>
+      <button type="submit">Registrarse</button>
     </form>
   </div>
 
   <footer>
-    <p id="pie">Escuela para Atletas CODE Jalisco © 2025</p>
+    <p id="pie">CODE Jalisco © 2025</p>
   </footer>
+
 </body>
 </html>
+

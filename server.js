@@ -6,6 +6,7 @@ const session = require('express-session');
 const helmet = require('helmet');
 const authRoutes = require('./routes/auth');
 const pool = require('./db');
+const pgSession = require('connect-pg-simple')(session);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,8 +18,7 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Configuración de sesiones
-const pgSession = require('connect-pg-simple')(session);
+// Configuración de sesiones con PostgreSQL
 app.use(session({
   store: new pgSession({ pool }),
   secret: process.env.SESSION_SECRET,

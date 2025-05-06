@@ -19,8 +19,7 @@ ul {
   list-style-type: none;
   background-color: #164b86;
   align-items: center;
-  justify-content: center;
-  padding: 10px;
+  padding: 0;
   margin: 0;
 }
 
@@ -35,7 +34,7 @@ li a {
   text-decoration: none;
   background-color: #164b86;
   font-size: 20px;
-  padding: 5px;
+  padding: 10px;
 }
 
 li .cerrar {
@@ -46,7 +45,7 @@ li a:hover {
   background-color: #2680c2;
 }
 
-div {
+div.container {
   width: 500px;
   height: auto;
   margin: 30px auto;
@@ -57,23 +56,28 @@ div {
   background-color: white;
 }
 
-p,
-h2 {
-  color: black;
-  font-size: 20px;
+form input, form select {
+  padding: 10px;
+  margin: 10px;
+  width: 80%;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #164b86;
+  color: white;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
 }
 
 footer {
   background-color: #fec600;
   padding: 10px 0;
-  margin-top: 40px;
+  margin-top: 3%;
   text-align: center;
-}
-
-i {
-  font-size: 20px;
-  color: #154b87;
-  margin: 10px;
 }
 
 #pie {

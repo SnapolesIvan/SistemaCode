@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contacto - Escuela para Atletas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <ul>
+      <li><img src="images/logo_code.png" alt="logo" class="logo"></li>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="login.html">Iniciar Sesión</a></li>
+      <li><a href="registro.html">Registrarse</a></li>
+      <li><a href="atleta.html">Atletas</a></li>
+      <li><a href="docentes.html">Docentes</a></li>
+      <li><a href="admin.html">Administración</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </header>
+
+  <main>
+    <div>
+      <h2>Contacto</h2>
+      <p>¿Tienes alguna duda, comentario o sugerencia? ¡Estamos para ayudarte!</p>
+      <form action="/api/contacto" method="POST">
+        <p><input type="text" name="nombre" placeholder="Tu nombre completo" required></p>
+        <p><input type="email" name="email" placeholder="Tu correo electrónico" required></p>
+        <p><textarea name="mensaje" placeholder="Escribe tu mensaje aquí" rows="5" required></textarea></p>
+        <p><button type="submit">Enviar mensaje</button></p>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <i class="fa-solid fa-envelope"></i> contacto@codejalisco.mx
+    <p id="pie">&copy; 2025 Escuela para Atletas - CODE Jalisco</p>
+  </footer>
+
+</body>
+</html>

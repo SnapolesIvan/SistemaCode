@@ -1,35 +1,35 @@
+// server.js
 const express = require('express');
-const { Pool } = require('pg');
 const cors = require('cors');
 const path = require('path');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const pool = new Pool({
-  connectionString: 'postgresql://${{PGUSER}}:${{POSTGRES_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:5432/${{PGDATABASE}}',
-  ssl: { rejectUnauthorized: false }
-});
-
+// Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Servir frontend
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Ruta principal
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// Rutas API
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/usuarios', require('./routes/usuarios'));
+app.use('/api/eventos', require('./routes/eventos'));
+app.use('/api/seguimiento', require('./routes/seguimiento'));
+app.use('/api/foro', require('./routes/foro'));
+
+// Fallback al index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-// Endpoint ejemplo: obtener usuarios
-app.get('/api/usuarios', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT id, nombre, correo, tipo_usuario FROM usuarios');
-    res.json(result.rows);
-  } catch (err) {
-    res.status(500).send('Error al consultar usuarios');
-  }
-});
-
+// Iniciar servidor
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor en http://localhost:${PORT}`);
 });
+

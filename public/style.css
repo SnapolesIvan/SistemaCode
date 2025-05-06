@@ -57,3 +57,8 @@ footer {
   text-align: center;
   color: #154b87;
 }
+
+.logo {
+  height: 60px; /* Tamaño más pequeño */
+  width: 80px;
+}

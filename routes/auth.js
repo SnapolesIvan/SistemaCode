@@ -1,21 +1,44 @@
-// routes/auth.js
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
+const bcrypt = require('bcrypt');
+const pool = require('../db');
 
-// Ruta POST para registrar usuario
+// Registro
 router.post('/register', async (req, res) => {
-  const { nombre, correo, contrasena, tipo } = req.body;
-
+  const { nombre, correo, contraseña, rol } = req.body;
   try {
-    await db.query(
-      'INSERT INTO usuarios (nombre, correo, contrasena, tipo) VALUES ($1, $2, $3, $4)',
-      [nombre, correo, contrasena, tipo]
+    const hashedPassword = await bcrypt.hash(contraseña, 10);
+    await pool.query(
+      'INSERT INTO usuarios (nombre, correo, contraseña, rol) VALUES ($1, $2, $3, $4)',
+      [nombre, correo, hashedPassword, rol]
     );
     res.redirect('/login.html');
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Error al registrar el usuario');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error en el registro');
+  }
+});
+
+// Login
+router.post('/login', async (req, res) => {
+  const { correo, contraseña } = req.body;
+  try {
+    const result = await pool.query('SELECT * FROM usuarios WHERE correo = $1', [correo]);
+    if (result.rows.length > 0) {
+      const user = result.rows[0];
+      const match = await bcrypt.compare(contraseña, user.contraseña);
+      if (match) {
+        if (user.rol === 'administrador') {
+          return res.redirect('/admin.html');
+        } else {
+          return res.redirect('/atleta.html');
+        }
+      }
+    }
+    res.send('Credenciales incorrectas');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error en el login');
   }
 });
 

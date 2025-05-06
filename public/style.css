@@ -3,10 +3,14 @@ body {
   margin: 0;
   padding: 0;
   background: #f4f4f4;
+  background-image: url('tu-imagen.jpg'); /* Ajusta la ruta de la imagen */
+  background-size: contain; /* La imagen será más pequeña */
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 
 header, footer {
-  background-color: #154b87; 
+  background-color: #154b87;
   color: white;
   padding: 1rem;
   text-align: center;
@@ -42,12 +46,19 @@ input, select, button {
 }
 
 button {
+  padding: 10px 20px;
   font-size: 18px;
   background-color: #154b87;
   color: white;
   border: none;
   border-radius: 0.3rem;
   cursor: pointer;
+  transition: all 0.3s ease-in-out; /* Animación suave */
+}
+
+button:hover {
+  background-color: #2680c2;
+  transform: scale(1.1); /* Aumenta ligeramente el tamaño */
 }
 
 footer {

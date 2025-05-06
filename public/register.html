@@ -1,36 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Registro</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header>
+    <h1>Registro</h1>
+    <nav>
+      <a href="/">Inicio</a>
+      <a href="/login.html">Iniciar Sesión</a>
+    </nav>
+  </header>
 
-  <ul>
-    <li><img src="images/logo_code.png" alt="logo" class="logo"></li>
-    <li><a href="index.html">Inicio</a></li>
-    <li><a href="login.html">Iniciar sesión</a></li>
-  </ul>
-
-  <div class="container">
-    <h2>Registrarse</h2>
+  <main>
     <form action="/auth/register" method="POST">
-      <input type="email" name="email" placeholder="Correo electrónico" required>
-      <input type="password" name="password" placeholder="Contraseña" required>
-      <select name="rol" required>
-        <option value="">Selecciona rol</option>
-        <option value="admin">Administrador</option>
+      <label for="nombre">Nombre:</label>
+      <input type="text" name="nombre" required />
+
+      <label for="correo">Correo:</label>
+      <input type="email" name="correo" required />
+
+      <label for="contrasena">Contraseña:</label>
+      <input type="password" name="contrasena" required />
+
+      <label for="tipo">Tipo de usuario:</label>
+      <select name="tipo" required>
         <option value="atleta">Atleta</option>
+        <option value="admin">Administrador</option>
       </select>
+
       <button type="submit">Registrarse</button>
     </form>
-  </div>
+  </main>
 
   <footer>
-    <p id="pie">CODE Jalisco © 2025</p>
+    <p>&copy; 2025 CODE Jalisco</p>
   </footer>
-
 </body>
 </html>
 

@@ -1,30 +1,24 @@
-// server.js
 const express = require('express');
 const path = require('path');
-const app = express();
+const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
+
+dotenv.config();
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-// Rutas estáticas
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas
 app.use('/auth', authRoutes);
 
-// Ruta base
+// Página principal
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
-  console.log(`Servidor iniciado en http://localhost:${PORT}`);
-});
-
-// Iniciar servidor
-app.listen(PORT, () => {
-  console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
+  console.log(`Servidor en http://localhost:${PORT}`);
 });

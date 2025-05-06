@@ -2,26 +2,27 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const authRoutes = require('./routes/auth');
+const PORT = process.env.PORT || 3000;
 
-// Middleware para parsear JSON y formularios
-app.use(express.json());
+// Middleware
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Servir archivos estáticos desde la carpeta "public"
+// Rutas estáticas
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Ruta raíz: sirve el archivo index.html
+// Rutas
+app.use('/auth', authRoutes);
+
+// Ruta base
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Aquí puedes agregar más rutas si usas rutas tipo /login, /registro, etc.
-// Ejemplo:
-// const authRoutes = require('./routes/auth');
-// app.use('/auth', authRoutes);
-
-// Puerto para Railway o local
-const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor iniciado en http://localhost:${PORT}`);
+});
 
 // Iniciar servidor
 app.listen(PORT, () => {

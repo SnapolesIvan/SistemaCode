@@ -1,21 +1,46 @@
+<!-- public/atletas.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Panel de Atleta</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Atletas - Escuela para Atletas</title>
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <header>
-        <img src="/images/logo_code.png" alt="Logo CODE Jalisco" class="logo" />
-    <h1>Bienvenido Atleta</h1>
-    <nav><a href="/">Cerrar sesión</a></nav>
+  <header class="bg-white shadow-md p-4 flex justify-between items-center">
+    <div class="flex items-center">
+      <img src="/images/logo_code.png" alt="Logo CODE Jalisco" class="h-12 mr-4"/>
+      <h1 class="text-2xl font-bold text-blue-900">Escuela para Atletas</h1>
+    </div>
+    <nav>
+      <ul class="flex gap-6 text-blue-800 font-medium">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/atletas.html" class="underline">Atletas</a></li>
+        <li><a href="/admin.html">Administración</a></li>
+        <li><a href="/login.html">Iniciar Sesión</a></li>
+      </ul>
+    </nav>
   </header>
-  <main>
-    <p>Este es tu panel como atleta. Aquí verás tu progreso y eventos deportivos.</p>
+
+  <main class="p-8 max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold mb-4 text-blue-900">Recursos para Atletas</h2>
+    <p class="mb-6 text-gray-700">
+      En esta sección encontrarás contenido informativo y educativo enfocado en tu desarrollo deportivo y académico.
+    </p>
+
+    <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl shadow-md">
+      <h3 class="text-xl font-semibold text-blue-800 mb-2">Accede al contenido en Google Drive</h3>
+      <a href="https://drive.google.com/drive/folders/1RIsl2qU5_5J0DayXY4mkWjYqV6kPawPS?usp=sharing" 
+         target="_blank"
+         class="inline-block bg-blue-700 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition">
+        Ver contenido
+      </a>
+    </div>
   </main>
-  <footer>
-    <p>&copy; 2025 CODE Jalisco</p>
+
+  <footer class="bg-blue-900 text-white p-4 mt-12 text-center text-sm">
+    © 2025 Escuela para Atletas - CODE Jalisco. Todos los derechos reservados.
   </footer>
 </body>
 </html>

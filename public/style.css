@@ -1,6 +1,6 @@
 form {
-  max-width: 600px; /* Se amplió el ancho */
-  width: 90%; /* Para adaptarse en pantallas más pequeñas */
+  max-width: 600px; /* Se amplía el ancho del formulario */
+  width: 90%; /* Adaptable en pantallas pequeñas */
   margin: 0 auto;
   background: white;
   padding: 2rem;
@@ -11,16 +11,12 @@ form {
 input, select, button, textarea {
   display: block;
   width: 100%;
-  max-width: 550px; /* Se amplió el tamaño de los campos */
+  max-width: 550px; /* Se amplían los campos de entrada */
   margin: 0 auto 1rem;
   padding: 0.8rem;
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 1rem;
-}
-
-textarea {
-  resize: vertical;
 }
 
 button {

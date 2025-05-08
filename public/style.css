@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   background: #f4f4f4;
-  background-image: url('/images/tu-imagen.jpg'); /* Ajusta la ruta de la imagen */
+  background-image: url('/images/tu-imagen.jpg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center top;
@@ -13,13 +13,38 @@ header {
   background-color: #154b87;
   color: white;
   padding: 1rem;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header div {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 80px;
+  width: 100px;
+  margin-right: 10px;
+}
+
+nav {
+  display: flex;
+  gap: 15px;
 }
 
 nav a {
   color: #fec600;
-  margin: 0 10px;
   text-decoration: none;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+nav a:hover {
+  background-color: rgba(255, 198, 0, 0.3);
 }
 
 main {
@@ -36,7 +61,7 @@ form {
   box-shadow: 0 0 5px #ccc;
 }
 
-input, select, button {
+input, select, button, textarea {
   display: block;
   width: 100%;
   margin-bottom: 1rem;
@@ -85,7 +110,17 @@ footer {
   color: #154b87;
 }
 
-.logo {
-  height: 80px;
-  width: 100px;
+footer p {
+  font-size: 1.2rem;
+}
+
+footer a {
+  color: #154b87;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }

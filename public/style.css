@@ -3,13 +3,13 @@ body {
   margin: 0;
   padding: 0;
   background: #f4f4f4;
-  background-image: url('tu-imagen.jpg'); /* Ajusta la ruta de la imagen */
-  background-size: contain; /* La imagen será más pequeña */
+  background-image: url('/images/tu-imagen.jpg'); /* Ajusta la ruta de la imagen */
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center top;
 }
 
-header, footer {
+header {
   background-color: #154b87;
   color: white;
   padding: 1rem;
@@ -45,7 +45,6 @@ input, select, button {
   border: 1px solid #ccc;
 }
 
-/* Animación de los botones */
 button {
   padding: 10px 20px;
   font-size: 18px;
@@ -79,52 +78,9 @@ button:hover {
   animation: vibrar 0.3s ease-in-out;
 }
 
-/* Menú animado */
-ul {
-  font-size: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: space-around;
-  list-style-type: none;
-  background-color: #164b86;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: aparecer 0.5s ease-in-out forwards;
-}
-
-@keyframes aparecer {
-  0% { opacity: 0; transform: translateY(-20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-li {
-  margin: 0% 12px 0%;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  background-color: #164b86;
-  font-size: 20px;
-  padding: 10px;
-  transition: all 0.3s ease-in-out;
-}
-
-li a:hover {
-  background-color: #2680c2;
-  transform: scale(1.1);
-}
-
-/* Estilo del pie de página */
 footer {
   background-color: #fec600;
   padding: 10px 0;
-  margin-top: 3%;
   text-align: center;
   color: #154b87;
 }

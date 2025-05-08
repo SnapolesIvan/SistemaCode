@@ -1,28 +1,52 @@
+<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Inicio | Escuela para Atletas</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Inicio - Escuela para Atletas</title>
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <header>
-    <img src="/images/logo_code.png" alt="Logo CODE Jalisco" class="logo" />
-    <h1>Escuela para Atletas</h1>
+  <header class="bg-white shadow-md p-4 flex justify-between items-center">
+    <div class="flex items-center">
+      <img src="/images/logo_code.png" alt="Logo CODE Jalisco" class="h-12 mr-4"/>
+      <h1 class="text-2xl font-bold text-blue-900">Escuela para Atletas</h1>
+    </div>
     <nav>
-      <a href="/login.html">Iniciar Sesión</a>
-      <a href="/register.html">Registrarse</a>
+      <ul class="flex gap-6 text-blue-800 font-medium">
+        <li><a href="/" class="underline">Inicio</a></li>
+        <li><a href="/atletas.html">Atletas</a></li>
+        <li><a href="/admin.html">Administración</a></li>
+        <li><a href="/login.html">Iniciar Sesión</a></li>
+      </ul>
     </nav>
   </header>
 
-  <main>
-    <h2>Bienvenido</h2>
-    <p>Este es un sistema de gestión para atletas y administradores.</p>
+  <main class="p-8 max-w-4xl mx-auto text-gray-800">
+    <h2 class="text-3xl font-bold text-blue-900 mb-4">Bienvenido a la Escuela para Atletas</h2>
+    <p class="mb-6">
+      Este sitio está diseñado para apoyar el desarrollo integral de los atletas del CODE Jalisco.
+      Aquí encontrarás recursos, eventos y herramientas para potenciar tu rendimiento tanto académico como deportivo.
+    </p>
+
+    <div class="bg-blue-50 border border-blue-200 p-6 rounded-xl shadow-md">
+      <h3 class="text-xl font-semibold text-blue-800 mb-2">¿Eres nuevo?</h3>
+      <p class="mb-4">Regístrate o inicia sesión para acceder a contenidos personalizados.</p>
+      <a href="/register.html" class="bg-blue-700 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition">Registrarse</a>
+    </div>
   </main>
 
-  <footer>
-    <p>&copy; 2025 CODE Jalisco</p>
+  <footer class="bg-blue-900 text-white p-6 mt-12 text-center text-sm">
+    <p>© 2025 Escuela para Atletas - CODE Jalisco. Todos los derechos reservados.</p>
+    <div class="flex justify-center mt-3 space-x-6">
+      <a href="https://www.instagram.com/escuelaparaatletas_code/" target="_blank" aria-label="Instagram" class="hover:text-blue-300">
+        Instagram
+      </a>
+      <a href="https://www.facebook.com/people/Escuela-para-Atletas-del-Code/61558726094196/?_rdr" target="_blank" aria-label="Facebook" class="hover:text-blue-300">
+        Facebook
+      </a>
+    </div>
   </footer>
 </body>
 </html>

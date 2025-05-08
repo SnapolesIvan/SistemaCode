@@ -3,49 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contacto - Escuela para Atletas</title>
-  <link rel="stylesheet" href="/styles.css" />
+  <title>Contacto | Escuela para Atletas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+    }
+
+    header, footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: #ecf0f1;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    main {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 5px;
+      box-shadow: 0 0 5px #ccc;
+    }
+
+    input, select, textarea, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1a242f;
+    }
+
+    .logo {
+      height: 50px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+  </style>
 </head>
 <body>
-  <header class="bg-white shadow-md p-4 flex justify-between items-center">
-    <div class="flex items-center">
-      <img src="/images/logo_code.png" alt="Logo CODE Jalisco" class="h-12 mr-4"/>
-      <h1 class="text-2xl font-bold text-blue-900">Escuela para Atletas</h1>
+  <header>
+    <div>
+      <img src="/images/logo_code.png" alt="Logo CODE Jalisco" class="logo">
+      <span style="font-size: 1.5rem; font-weight: bold;">Escuela para Atletas</span>
     </div>
     <nav>
-      <ul class="flex gap-6 text-blue-800 font-medium">
-        <li><a href="/">Inicio</a></li>
-        <li><a href="/atletas.html">Atletas</a></li>
-        <li><a href="/admin.html">Administración</a></li>
-        <li><a href="/contacto.html" class="underline">Contacto</a></li>
-      </ul>
+      <a href="/login.html">Iniciar Sesión</a>
+      <a href="/register.html">Registrarse</a>
+      <a href="/contacto.html">Contacto</a>
     </nav>
   </header>
 
-  <main class="p-8 max-w-2xl mx-auto text-gray-800">
-    <h2 class="text-3xl font-bold text-blue-900 mb-6">Contáctanos</h2>
-    <p class="mb-6">Si tienes alguna duda, comentario o sugerencia, por favor completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
+  <main>
+    <h2>Contáctanos</h2>
+    <p>Envíanos tu mensaje y nos pondremos en contacto contigo.</p>
 
-    <form action="/api/contacto" method="POST" class="space-y-6 bg-blue-50 p-6 rounded-xl shadow-md border border-blue-200">
-      <div>
-        <label for="nombre" class="block text-sm font-semibold text-blue-800 mb-1">Nombre completo</label>
-        <input type="text" id="nombre" name="nombre" required class="w-full p-2 border rounded-lg border-blue-300"/>
-      </div>
+    <form action="#" method="POST">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="nombre" required>
 
-      <div>
-        <label for="email" class="block text-sm font-semibold text-blue-800 mb-1">Correo electrónico</label>
-        <input type="email" id="email" name="email" required class="w-full p-2 border rounded-lg border-blue-300"/>
-      </div>
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" name="email" required>
 
-      <div>
-        <label for="mensaje" class="block text-sm font-semibold text-blue-800 mb-1">Mensaje</label>
-        <textarea id="mensaje" name="mensaje" rows="5" required class="w-full p-2 border rounded-lg border-blue-300"></textarea>
-      </div>
+      <label for="mensaje">Mensaje</label>
+      <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
 
-      <button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition">Enviar mensaje</button>
+      <button type="submit">Enviar</button>
     </form>
   </main>
-
+  
 <footer>
   <p>&copy; 2025 CODE Jalisco</p>
   <p>Síguenos en redes:</p>

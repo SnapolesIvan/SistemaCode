@@ -2,11 +2,12 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Admin | Panel de Administrador</title>
+  <title>Administrador | Panel de Administrador</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="admin.js"></script>
 </head>
 <body>
-  <header>    
+  <header>
     <img src="/images/logo_code.png" alt="Logo CODE Jalisco" class="logo" />
     <h1>Bienvenido Administrador</h1>
     <nav>
@@ -16,32 +17,17 @@
   </header>
 
   <main>
-    <p>Aquí puedes gestionar usuarios, eventos y reportes.</p>
-
-    <h2>Gestión de Usuarios</h2>
-    <table id="userTable">
+    <h2>Usuarios Registrados</h2>
+    <table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Email</th>
-          <th>Rol</th>
-          <th>Acciones</th>
+          <th>ID</th><th>Nombre</th><th>Email</th><th>Rol</th><th>Acciones</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- Los usuarios se cargarán aquí -->
+      <tbody id="userTableBody">
+        <!-- Usuarios se insertan aquí con JS -->
       </tbody>
     </table>
-
-    <form id="editForm">
-      <h3>Editar Usuario</h3>
-      <input type="hidden" id="editId">
-      <input type="text" id="editNombre" placeholder="Nombre" required>
-      <input type="email" id="editEmail" placeholder="Email" required>
-      <input type="text" id="editRol" placeholder="Rol" required>
-      <button type="submit">Guardar Cambios</button>
-    </form>
   </main>
 
   <footer>
@@ -52,65 +38,60 @@
       <a href="https://www.facebook.com/people/Escuela-para-Atletas-del-Code/61558726094196/?_rdr" target="_blank">Facebook</a>
     </p>
   </footer>
-
+  
 <script>
-  async function cargarUsuarios() {
-    const res = await fetch('/api/users');
-    const usuarios = await res.json();
+document.addEventListener("DOMContentLoaded", () => {
+  fetch('/api/users')
+    .then(res => res.json())
+    .then(users => {
+      const tbody = document.getElementById('userTableBody');
+      tbody.innerHTML = '';
 
-    const tabla = document.createElement('table');
-    tabla.innerHTML = `
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Rol</th>
-        <th>Acciones</th>
-      </tr>
-    `;
-
-    usuarios.forEach(user => {
-      const fila = document.createElement('tr');
-      fila.innerHTML = `
-        <td>${user.id}</td>
-        <td><input value="${user.nombre}" /></td>
-        <td><input value="${user.email}" /></td>
-        <td><input value="${user.rol}" /></td>
-        <td>
-          <button onclick="actualizarUsuario(${user.id}, this)">Editar</button>
-          <button onclick="eliminarUsuario(${user.id})">Eliminar</button>
-        </td>
-      `;
-      tabla.appendChild(fila);
+      users.forEach(user => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${user.id}</td>
+          <td><input value="${user.nombre}" data-id="${user.id}" data-field="nombre" /></td>
+          <td><input value="${user.email}" data-id="${user.id}" data-field="email" /></td>
+          <td><input value="${user.rol}" data-id="${user.id}" data-field="rol" /></td>
+          <td>
+            <button onclick="updateUser(${user.id})">Guardar</button>
+            <button onclick="deleteUser(${user.id})">Eliminar</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
     });
+});
 
-    document.querySelector('main').appendChild(tabla);
-  }
+function updateUser(id) {
+  const nombre = document.querySelector(`input[data-id="${id}"][data-field="nombre"]`).value;
+  const email = document.querySelector(`input[data-id="${id}"][data-field="email"]`).value;
+  const rol = document.querySelector(`input[data-id="${id}"][data-field="rol"]`).value;
 
-  async function actualizarUsuario(id, btn) {
-    const fila = btn.closest('tr');
-    const nombre = fila.children[1].children[0].value;
-    const email = fila.children[2].children[0].value;
-    const rol = fila.children[3].children[0].value;
-
-    await fetch(`/api/users/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, email, rol })
+  fetch(`/api/users/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nombre, email, rol })
+  })
+    .then(res => res.json())
+    .then(data => {
+      alert("Usuario actualizado correctamente");
+      location.reload();
     });
+}
 
-    alert('Usuario actualizado');
+function deleteUser(id) {
+  if (confirm("¿Seguro que quieres eliminar este usuario?")) {
+    fetch(`/api/users/${id}`, { method: 'DELETE' })
+      .then(res => res.json())
+      .then(data => {
+        alert("Usuario eliminado");
+        location.reload();
+      });
   }
+}
 
-  async function eliminarUsuario(id) {
-    if (!confirm('¿Eliminar este usuario?')) return;
-
-    await fetch(`/api/users/${id}`, { method: 'DELETE' });
-    alert('Usuario eliminado');
-    location.reload();
-  }
-
-  cargarUsuarios();
 </script>
 
 </body>

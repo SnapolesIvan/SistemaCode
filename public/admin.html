@@ -4,60 +4,6 @@
   <meta charset="UTF-8" />
   <title>Panel de Administrador</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 2rem;
-    }
-
-    th, td {
-      padding: 0.8rem;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
-
-    th {
-      background-color: #2c3e50;
-      color: white;
-    }
-
-    button {
-      margin: 0 5px;
-      padding: 0.3rem 0.6rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .btn-edit {
-      background-color: #3498db;
-      color: white;
-    }
-
-    .btn-delete {
-      background-color: #e74c3c;
-      color: white;
-    }
-
-    form {
-      max-width: 400px;
-      margin: 2rem auto;
-      background: white;
-      padding: 1rem;
-      border-radius: 5px;
-      box-shadow: 0 0 5px #ccc;
-      display: none;
-    }
-
-    input {
-      width: 100%;
-      margin-bottom: 1rem;
-      padding: 0.5rem;
-      border-radius: 3px;
-      border: 1px solid #ccc;
-    }
-  </style>
 </head>
 <body>
   <header>    
@@ -107,63 +53,66 @@
     </p>
   </footer>
 
-  <script>
-    const API_URL = '/api/users';
+<script>
+  async function cargarUsuarios() {
+    const res = await fetch('/api/users');
+    const usuarios = await res.json();
 
-    async function cargarUsuarios() {
-      const res = await fetch(API_URL);
-      const usuarios = await res.json();
-      const tbody = document.querySelector('#userTable tbody');
-      tbody.innerHTML = '';
-      usuarios.forEach(user => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${user.id}</td>
-          <td>${user.nombre}</td>
-          <td>${user.email}</td>
-          <td>${user.rol}</td>
-          <td>
-            <button class="btn-edit" onclick="editarUsuario(${user.id}, '${user.nombre}', '${user.email}', '${user.rol}')">Editar</button>
-            <button class="btn-delete" onclick="eliminarUsuario(${user.id})">Eliminar</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
+    const tabla = document.createElement('table');
+    tabla.innerHTML = `
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+    `;
 
-    function editarUsuario(id, nombre, email, rol) {
-      document.getElementById('editId').value = id;
-      document.getElementById('editNombre').value = nombre;
-      document.getElementById('editEmail').value = email;
-      document.getElementById('editRol').value = rol;
-      document.getElementById('editForm').style.display = 'block';
-    }
-
-    async function eliminarUsuario(id) {
-      if (confirm('¿Estás seguro de eliminar este usuario?')) {
-        await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-        cargarUsuarios();
-      }
-    }
-
-    document.getElementById('editForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const id = document.getElementById('editId').value;
-      const nombre = document.getElementById('editNombre').value;
-      const email = document.getElementById('editEmail').value;
-      const rol = document.getElementById('editRol').value;
-      await fetch(`${API_URL}/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, email, rol })
-      });
-      document.getElementById('editForm').reset();
-      document.getElementById('editForm').style.display = 'none';
-      cargarUsuarios();
+    usuarios.forEach(user => {
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+        <td>${user.id}</td>
+        <td><input value="${user.nombre}" /></td>
+        <td><input value="${user.email}" /></td>
+        <td><input value="${user.rol}" /></td>
+        <td>
+          <button onclick="actualizarUsuario(${user.id}, this)">Editar</button>
+          <button onclick="eliminarUsuario(${user.id})">Eliminar</button>
+        </td>
+      `;
+      tabla.appendChild(fila);
     });
 
-    cargarUsuarios();
-  </script>
+    document.querySelector('main').appendChild(tabla);
+  }
+
+  async function actualizarUsuario(id, btn) {
+    const fila = btn.closest('tr');
+    const nombre = fila.children[1].children[0].value;
+    const email = fila.children[2].children[0].value;
+    const rol = fila.children[3].children[0].value;
+
+    await fetch(`/api/users/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, email, rol })
+    });
+
+    alert('Usuario actualizado');
+  }
+
+  async function eliminarUsuario(id) {
+    if (!confirm('¿Eliminar este usuario?')) return;
+
+    await fetch(`/api/users/${id}`, { method: 'DELETE' });
+    alert('Usuario eliminado');
+    location.reload();
+  }
+
+  cargarUsuarios();
+</script>
+
 </body>
 </html>
 
